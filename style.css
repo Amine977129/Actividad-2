@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/*  MACRO-LAYOUT: CSS GRID (4 columnas) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 180px;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cajas que ocupan más espacio (asimetría) */
+.presentacion { grid-column: span 2; grid-row: span 2; }
+.proyecto     { grid-column: span 2; }
+.competencias { grid-row: span 2; }
+.contacto     { grid-column: span 2; }
+
+/*= MICRO-LAYOUT: FLEXBOX en cada caja */
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* título arriba, botón abajo */
+  padding: 22px;
+  border-radius: 20px;
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* Transición para el :hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+/* HOVER en TODAS las cajas  */
+.box:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5);
+  background: #6366f1;
+}
+
+/* Colores base distintos por caja */
+.presentacion { background: #4338ca; }
+.proyecto     { background: #0e7490; }
+.competencias { background: #be185d; }
+.formacion    { background: #15803d; }
+.contacto     { background: #b45309; }
+.experiencia  { background: #7e22ce; }
+
+/* Cajas con contenido centrado */
+.formacion,
+.experiencia {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+/* Presentación */
+.presentacion .texto h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.presentacion .icono {
+  font-size: 3rem;
+  align-self: flex-start;
+}
+
+/* Textos */
+h2 { font-size: 1.2rem; }
+p  { font-size: 0.95rem; opacity: 0.9; }
+.icono { font-size: 2.2rem; }
+
+/* Lista de competencias con Flexbox */
+.competencias ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.competencias li {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.competencias li:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(1.1);
+}
+
+/* Botones */
+.botones {
+  display: flex;
+  gap: 10px;
+}
+.boton {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 8px 18px;
+  background: #f8fafc;
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.boton:hover {
+  background: #fde68a;
+  transform: scale(1.08);
+}
+
+/* Etiqueta con punto que pulsa */
+.etiqueta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+.punto {
+  width: 12px;
+  height: 12px;
+  background: #4ade80;
+  border-radius: 50%;
+}
+
+/* ANIMACIONES CONTINUAS (@keyframes)  */
+
+/* Flotación del icono */
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+.flotante {
+  animation: flotar 3s ease-in-out infinite;
+}
+
+/* Pulsación del punto verde */
+@keyframes pulso {
+  0%   { transform: scale(1);   box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+  70%  { transform: scale(1.2); box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+  100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+.punto {
+  animation: pulso 2s infinite;
+}
+
+/* RESPONSIVE  */
+@media (max-width: 800px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .presentacion { grid-column: span 2; }
+}
+@media (max-width: 500px) {
+  .grid { grid-template-columns: 1fr; }
+  .presentacion, .proyecto, .contacto { grid-column: span 1; }
+  .presentacion, .competencias { grid-row: span 1; grid-auto-rows: auto; }
+  .grid { grid-auto-rows: minmax(180px, auto); }
+}
+.logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+}
